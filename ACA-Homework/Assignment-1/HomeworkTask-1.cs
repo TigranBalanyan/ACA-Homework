@@ -57,16 +57,16 @@ namespace ACA_Homework.Assignment_1
             }
 
             /// <summary>
-            /// c-di is a conjugate of a c+di
-            /// (a+bi)/(c+di) = (a+bi)*(c-di)/(c+di)*(c-di) = (a+bi)*(c-di)/(c^2-(di)^2) implememted simple division algorithm
+            /// a = a1 + a2*i
+            /// b = b1 + b2*i
+            /// a / b =(a1 + a2*i)*(b1 - b2*i)/(b1^2 + b2^2) 
+            /// conjugate = (b1 - b2*i) the conjugate
             /// </summary>
             public static Complex operator/ (Complex a, Complex b)
             {
-                Complex bConjugate = new Complex(b.RealPart, (-1) * b.ComplexPart); //finding a conjugate number
-                Complex c = a * bConjugate;
-                double  realPart = (a*bConjugate).RealPart; 
-                double complexPart = (a * bConjugate).ComplexPart;
-                double downNumber = Math.Pow(b.RealPart, 2) - Math.Pow(b.ComplexPart,2);
+                Complex conjugate = new Complex(b.RealPart, (-1) * b.ComplexPart); //finding a conjugate number
+                Complex c = a * conjugate; 
+                double downNumber = Math.Pow(b.RealPart, 2) +  Math.Pow(b.ComplexPart,2);
                 Complex res = new Complex
                 {
                     RealPart = c.RealPart / downNumber,
@@ -79,7 +79,7 @@ namespace ACA_Homework.Assignment_1
             /// <summary>
             /// |a + b*i| = sqrt(a-^2 + b^2)  
             /// </summary>
-            public double Magnitude(Complex a)
+            public static double Magnitude(Complex a)
             {
                 return Math.Sqrt(Math.Pow(a.RealPart, 2) + Math.Pow(a.ComplexPart, 2));  
             }

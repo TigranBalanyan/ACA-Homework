@@ -12,9 +12,10 @@ namespace ACA_Homework
         static void Main(string[] args)
         {
             Complex a = new Complex();
-            a.RealPart = 5;
-            a.ComplexPart = 10.45;
-            Complex b = new Complex(5.6, 10.3);
+            a.RealPart = 4;
+            a.ComplexPart = 16.8;
+            Complex b = new Complex(7.3, 5.9);
+
             Console.WriteLine("Addition");
             Console.WriteLine("Real part: " + (a + b).RealPart + " Complex part " +  (a + b).ComplexPart);
 
@@ -22,6 +23,13 @@ namespace ACA_Homework
             Console.WriteLine("Real part: " + (a - b).RealPart + " Complex part " + (a - b).ComplexPart);
 
             Console.WriteLine("Multiplication");
+            Console.WriteLine("Real part: " + (a * b).RealPart + " Complex part " + (a * b).ComplexPart);
+
+            Console.WriteLine("Division");
+            Console.WriteLine("Real part: " + (a / b).RealPart + " Complex part " + (a / b).ComplexPart);
+
+            Console.WriteLine("Magnitude");
+            Console.WriteLine(Complex.Magnitude(a));
 
         }
     }

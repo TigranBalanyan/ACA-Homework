@@ -6,18 +6,12 @@ using System.Threading.Tasks;
 
 namespace ACA_Homework.Assingment_3
 {
-    public abstract class Algorithm
+    public interface IAlgorithm
     {
-        public abstract string Sort(int[] array);
+        string Sort(int[] array);
 
-        public static string RunningTime()
-        {
-            return "Running Time";
-        }
+        string RunningTime(int[] array);
 
-        public static string UsedMemory()
-        {
-            return "Used Memory";
-        }
+        string UsedMemory(int[] array);
     }
 }

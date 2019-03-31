@@ -33,38 +33,40 @@ namespace ACA_Homework
                 throw new Exception();
             }
 
-            int[] numbersOfAlgorithms = AlgorithmNumbers(algorithmNumber);
+           // int[] numbersOfAlgorithms = AlgorithmNumbers(algorithmNumber);
             
-            var Algorithms = new List<Algorithm>();
-            foreach (var i in numbersOfAlgorithms)
-            {
-                if (i == 1)
-                {
-                    Algorithms.Add(new InsertionSort());
-                }
-                if(i == 2)
-                {
-                    Algorithms.Add(new BubbleSort());
-                }
-                if(i == 3)
-                {
-                    Algorithms.Add(new MergeSort());
-                }
-                if(i == 4)
-                {
-                    Algorithms.Add(new QuickSort());
-                }
-                if(i == 5)
-                {
-                    Algorithms.Add(new HeapSort());
-                }
-            }
+            var Algorithms = new List<IAlgorithm>();
+            Algorithms.Add(new InsertionSort());
+            //foreach (var i in numbersOfAlgorithms)
+            //{
+            //    if (i == 1)
+            //    {
+            //        Algorithms.Add(new InsertionSort());
+            //    }
+            //    if (i == 2)
+            //    {
+            //        Algorithms.Add(new BubbleSort());
+            //    }
+            //    if (i == 3)
+            //    {
+            //        Algorithms.Add(new MergeSort());
+            //    }
+            //    if (i == 4)
+            //    {
+            //        Algorithms.Add(new QuickSort());
+            //    }
+            //    if (i == 5)
+            //    {
+            //        Algorithms.Add(new HeapSort());
+            //    }
+            //}
 
             foreach(var algorithm in Algorithms)
             {
-                algorithm.Sort(randomArray);
-                Algorithm.RunningTime();
-                Algorithm.UsedMemory();
+                Console.WriteLine(algorithm.Sort(randomArray));
+                Console.WriteLine();
+                Console.WriteLine(algorithm.RunningTime(randomArray));
+              //  algorithm.UsedMemory(randomArray);
             }
         }
 

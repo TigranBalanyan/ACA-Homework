@@ -27,92 +27,114 @@ namespace ACA_Homework
 
             string algorithmNumber = Console.ReadLine();
 
-            if (algorithmNumber == string.Empty)
+            List<int> numbersOfAlgorithms = AlgorithmNumbers(algorithmNumber);
+
+            if (numbersOfAlgorithms != null)
             {
-                Console.WriteLine("Please enter the valid number");
-                throw new Exception();
-            }
+                var Algorithms = new List<IAlgorithm>();
 
-           // int[] numbersOfAlgorithms = AlgorithmNumbers(algorithmNumber);
-            
-            var Algorithms = new List<IAlgorithm>();
-            Algorithms.Add(new InsertionSort());
-            //foreach (var i in numbersOfAlgorithms)
-            //{
-            //    if (i == 1)
-            //    {
-            //        Algorithms.Add(new InsertionSort());
-            //    }
-            //    if (i == 2)
-            //    {
-            //        Algorithms.Add(new BubbleSort());
-            //    }
-            //    if (i == 3)
-            //    {
-            //        Algorithms.Add(new MergeSort());
-            //    }
-            //    if (i == 4)
-            //    {
-            //        Algorithms.Add(new QuickSort());
-            //    }
-            //    if (i == 5)
-            //    {
-            //        Algorithms.Add(new HeapSort());
-            //    }
-            //}
-
-            foreach(var algorithm in Algorithms)
-            {
-                Console.WriteLine(algorithm.Sort(randomArray));
-                Console.WriteLine();
-                Console.WriteLine(algorithm.RunningTime(randomArray));
-              //  algorithm.UsedMemory(randomArray);
-            }
-        }
-
-        private static int[] AlgorithmNumbers(string algorithmNumber)
-        {
-            if (algorithmNumber.Length >= 1 && algorithmNumber.Length <= 3)
-            {
-                int[] numberOfAlgorithms;
-
-                int firstNumber = Convert.ToInt32(algorithmNumber[0]);
-
-                if (algorithmNumber.Length == 1)
+                foreach (var i in numbersOfAlgorithms)
                 {
-                    numberOfAlgorithms = new int[1];
-                    numberOfAlgorithms[0] = firstNumber;
-                }
-                else
-                {
-                    int lastNumber = Convert.ToInt32(algorithmNumber[2]);
-
-                    int num;
-
-                    if (lastNumber > firstNumber)
+                    switch (i)
                     {
-                        num = lastNumber - firstNumber;
-                    }
-                    else
-                    {
-                        num = firstNumber - lastNumber;
-                    }
-
-                    numberOfAlgorithms = new int[num + 1];
-
-                    for (int i = 0; i <= num; i++)
-                    {
-                        numberOfAlgorithms[i] = firstNumber + i;
-                        Console.WriteLine(numberOfAlgorithms[i] + " ");
+                        case 1: 
+                            Algorithms.Add(new InsertionSort());
+                            break;
+                        case 2:
+                            Algorithms.Add(new BubbleSort());
+                            break;
+                        case 3:
+                            Algorithms.Add(new QuickSort());
+                            break;
+                        case 4:
+                            Algorithms.Add(new HeapSort());
+                            break;
+                        case 5:
+                            Algorithms.Add(new MergeSort());
+                            break;
+                        default:
+                            Console.WriteLine("Please, enter the valid numbers!");
+                            break;
                     }
                 }
 
-                return numberOfAlgorithms;
+                foreach (var algorithm in Algorithms)
+                {
+                    Console.WriteLine(algorithm.Sort(randomArray));
+                    Console.WriteLine();
+                    //  algorithm.UsedMemory(randomArray);
+                }
             }
             else
             {
-                return null;
+                Console.WriteLine("Please, enter the valid numbers!");
             }
+        }
+
+        private static List<int> AlgorithmNumbers(string algorithmNumber)
+        {
+            try
+            {
+                if (algorithmNumber.Length == 1 || algorithmNumber.Length == 3)
+                {
+                    List<int> numberOfAlgorithms = new List<int>();
+
+                    if (algorithmNumber.Contains('6'))
+                    {
+                        numberOfAlgorithms.Add(1);
+                        numberOfAlgorithms.Add(2);
+                        numberOfAlgorithms.Add(3);
+                        numberOfAlgorithms.Add(4);
+                        numberOfAlgorithms.Add(5);
+
+                        return numberOfAlgorithms;
+                    }
+
+                    if (algorithmNumber.Length == 1)
+                    {
+                        numberOfAlgorithms.Add(Convert.ToInt32(algorithmNumber[0]) - 48);
+                        return numberOfAlgorithms;
+                    }
+                    else
+                    {
+                        int firstNumber = Convert.ToInt32(algorithmNumber[0]) - 48;
+                        int lastNumber = Convert.ToInt32(algorithmNumber[2]) - 48;
+
+                        if(firstNumber > 5 || lastNumber > 5)
+                        {
+                            return null;
+                        }
+
+                        if (algorithmNumber[1] == ',')
+                        {
+                            numberOfAlgorithms.Add(firstNumber);
+                            numberOfAlgorithms.Add(lastNumber);
+
+                            return numberOfAlgorithms;
+                        }
+                        if (algorithmNumber[1] == '-')
+                        {
+                            for (int i = firstNumber; i <= lastNumber; i++)
+                            {
+                                numberOfAlgorithms.Add(i);
+                                Console.WriteLine(i);
+                            }
+
+                            return numberOfAlgorithms;
+                        }
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Source + "Format is invalid");
+            }
+
+            return null;
         }
 
         private static int[] ArrayRandomiser(int sizeOfAnArray, int Min, int Max)

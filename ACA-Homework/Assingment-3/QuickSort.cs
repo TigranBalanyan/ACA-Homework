@@ -6,19 +6,9 @@ using System.Threading.Tasks;
 
 namespace ACA_Homework.Assingment_3
 {
-    public class QuickSort : IAlgorithm
+    public class QuickSort : Algorithm
     {
-        public string RunningTime(int[] array)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string Sort(int[] array)
-        {
-            return "Quick Sort";
-        }
-
-        public string UsedMemory(int[] array)
+        public override string Sort(int[] randomArray)
         {
             throw new NotImplementedException();
         }

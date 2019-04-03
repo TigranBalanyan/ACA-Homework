@@ -31,7 +31,7 @@ namespace ACA_Homework
 
             if (numbersOfAlgorithms != null)
             {
-                var Algorithms = new List<IAlgorithm>();
+                var Algorithms = new List<Algorithm>();
 
                 foreach (var i in numbersOfAlgorithms)
                 {
@@ -58,11 +58,14 @@ namespace ACA_Homework
                     }
                 }
 
-                foreach (var algorithm in Algorithms)
+                foreach (var algorithm in Algorithms)   
                 {
-                    Console.WriteLine(algorithm.Sort(randomArray));
+                    //Console.WriteLine(algorithm.Sort(randomArray));
+                    //Console.WriteLine();
+                    Console.WriteLine(Convert.ToString(algorithm.ToString()));
+                    Console.WriteLine(algorithm.RunningTime(randomArray));
+                    Console.WriteLine(algorithm.UsedMemory());
                     Console.WriteLine();
-                    //  algorithm.UsedMemory(randomArray);
                 }
             }
             else

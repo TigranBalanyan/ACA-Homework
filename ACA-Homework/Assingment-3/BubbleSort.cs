@@ -6,21 +6,24 @@ using System.Threading.Tasks;
 
 namespace ACA_Homework.Assingment_3
 {
-    public class BubbleSort : IAlgorithm
+    public class BubbleSort : Algorithm
     {
-        public string RunningTime(int[] array)
+        public override string Sort(int[] randomArray)
         {
-            throw new NotImplementedException();
-        }
-
-        public string Sort(int[] array)
-        {
-            return "Bubble Sort ";
-        }
-
-        public string UsedMemory(int[] array)
-        {
-            throw new NotImplementedException();
+            int temp;
+            for (int j = 0; j <= randomArray.Length - 2; j++)
+            {
+                for (int i = 0; i <= randomArray.Length - 2; i++)
+                {
+                    if (randomArray[i] > randomArray[i + 1])
+                    {
+                        temp = randomArray[i + 1];
+                        randomArray[i + 1] = randomArray[i];
+                        randomArray[i] = temp;
+                    }
+                }
+            }
+            return Convert.ToString(randomArray);
         }
     }
 }

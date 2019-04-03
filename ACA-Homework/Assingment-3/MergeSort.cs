@@ -6,21 +6,17 @@ using System.Threading.Tasks;
 
 namespace ACA_Homework.Assingment_3
 {
-    public class MergeSort : IAlgorithm
+    public class MergeSort : Algorithm
     {
-        public string RunningTime(int[] array)
+        public override string Sort(int[] randomArray)
         {
-            throw new NotImplementedException();
-        }
+            if (randomArray.Length <= 1)
+            {
+                    return Convert.ToString(randomArray);
+            }
 
-        public string Sort(int[] array)
-        {
-            return "Merge Sort"; 
-        }
+            return null;
 
-        public string UsedMemory(int[] array)
-        {
-            throw new NotImplementedException();
         }
     }
 }

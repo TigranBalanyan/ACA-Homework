@@ -6,21 +6,44 @@ using System.Threading.Tasks;
 
 namespace ACA_Homework.Assingment_3
 {
-    public class HeapSort : IAlgorithm
+    public class HeapSort : Algorithm
     {
-        public string RunningTime(int[] array)
+        public override string Sort(int[] randomArray)
         {
-            throw new NotImplementedException();
-        }
+            int n = randomArray.Length;
+            for (int i = n / 2 - 1; i >= 0; i--)
+                Heapify(randomArray, n, i);
 
-        public string Sort(int[] array)
-        {
-            return "Heap Sort";
-        }
+            for (int i = n - 1; i >= 0; i--)
+            {
+                int temp = randomArray[0];
+                randomArray[0] = randomArray[i];
+                randomArray[i] = temp;
+                Heapify(randomArray, i, 0);
+            }
 
-        public string UsedMemory(int[] array)
+            return Convert.ToString(randomArray);
+        }
+        static void Heapify(int[] arr, int n, int i)
         {
-            throw new NotImplementedException();
+            int largest = i;
+            int left = 2 * i + 1;
+            int right = 2 * i + 2;
+
+            if (left < n && arr[left] > arr[largest])
+                largest = left;
+
+            if (right < n && arr[right] > arr[largest])
+                largest = right;
+
+            if (largest != i)
+            {
+                int swap = arr[i];
+                arr[i] = arr[largest];
+                arr[largest] = swap;
+
+                Heapify(arr, n, largest);
+            }
         }
     }
 }

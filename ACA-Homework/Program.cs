@@ -44,13 +44,13 @@ namespace ACA_Homework
                             Algorithms.Add(new BubbleSort());
                             break;
                         case 3:
-                            Algorithms.Add(new QuickSort());
+                            Algorithms.Add(new QuickSort()); // not implemented
                             break;
                         case 4:
                             Algorithms.Add(new HeapSort());
                             break;
                         case 5:
-                            Algorithms.Add(new MergeSort());
+                            Algorithms.Add(new MergeSort()); // not implemented
                             break;
                         default:
                             Console.WriteLine("Please, enter the valid numbers!");
@@ -60,8 +60,6 @@ namespace ACA_Homework
 
                 foreach (var algorithm in Algorithms)   
                 {
-                    //Console.WriteLine(algorithm.Sort(randomArray));
-                    //Console.WriteLine();
                     Console.WriteLine(Convert.ToString(algorithm.ToString()));
                     Console.WriteLine(algorithm.RunningTime(randomArray));
                     Console.WriteLine(algorithm.UsedMemory());

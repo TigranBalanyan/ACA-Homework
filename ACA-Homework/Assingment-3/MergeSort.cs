@@ -8,15 +8,9 @@ namespace ACA_Homework.Assingment_3
 {
     public class MergeSort : Algorithm
     {
-        public override string Sort(int[] randomArray)
+        public override string Sort(int[] array)
         {
-            if (randomArray.Length <= 1)
-            {
-                    return Convert.ToString(randomArray);
-            }
-
-            return null;
-
+            throw new NotImplementedException();
         }
     }
 }

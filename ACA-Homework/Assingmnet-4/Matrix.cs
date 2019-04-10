@@ -33,17 +33,21 @@ namespace ACA_Homework.Assingmnet_4
             }
         }
 
-        public Matrix Inverse()
+
+        public Matrix Transpose()
         {
-            Matrix inverseMatrix = new Matrix(rows:Columns, columns:Rows);
+            Matrix inversedMatrix = new Matrix(Columns, Rows);
 
-            return inverseMatrix;
+            for (int i = 0; i < this.Rows; i++)
+            {
+                for (int j = 0; j < this.Columns; j++)
+                {
+                    inversedMatrix.ArrayContent[j, i] = this.ArrayContent[i, j]; 
+                }
+            }
+
+            return inversedMatrix;
         }
-
-        //public Matrix Transpose()
-        //{
-        //    return new Matrix();
-        //}
 
         public bool IsOrthogonal()
         {
@@ -60,5 +64,57 @@ namespace ACA_Homework.Assingmnet_4
             return 15;
         }
 
+        public static Matrix operator+ (Matrix firstMatrix, Matrix secondMatrix)
+        {
+
+            if (firstMatrix.Columns != secondMatrix.Columns || firstMatrix.Rows != secondMatrix.Rows)
+                return null;
+
+            Matrix summaryMatrix = new Matrix(firstMatrix.Rows, firstMatrix.Columns);
+            for (int i = 0; i < firstMatrix.Rows; i++)
+            {
+                for (int j = 0; j < firstMatrix.Columns; j++)
+                {
+                    summaryMatrix.ArrayContent[i, j] = firstMatrix.ArrayContent[i, j] + secondMatrix.ArrayContent[i, j];
+                }
+            }
+
+            return summaryMatrix;
+        }
+
+        public static Matrix operator* (Matrix firstMatrix, Matrix secondMatrix)
+        {
+            if (firstMatrix.Columns != secondMatrix.Rows)
+                return null;
+
+            Matrix multipliedMatrix = new Matrix(firstMatrix.Rows, secondMatrix.Columns);
+            for (int i = 0; i < firstMatrix.Rows; i++)
+            {
+                for (int j = 0; j < secondMatrix.Columns; j++)
+                {
+                    multipliedMatrix.ArrayContent[i, j] = 0;
+                    for(int k = 0; k < firstMatrix.Columns; k++)
+                    {
+                        multipliedMatrix.ArrayContent[i, j] += firstMatrix.ArrayContent[i, k] * secondMatrix.ArrayContent[k, j];
+                    }
+                }
+            }
+            return multipliedMatrix;
+        }
+
+        public static Matrix operator* (Matrix matrix, int k)
+        {
+            Matrix scalarMultiplication = new Matrix(matrix.Rows, matrix.Columns);
+
+            for (int i = 0; i < matrix.Rows; i++)
+            {
+                for (int j = 0; j < matrix.Columns; j++)
+                {
+                    scalarMultiplication.ArrayContent[i, j] *= k;
+                }
+            }
+
+            return scalarMultiplication;
+        }
     }
 }

@@ -14,6 +14,14 @@ namespace ACA_Homework
             int columns = Convert.ToInt32(Console.ReadLine());
 
             Matrix matrix = new Matrix(rows: rows, columns: columns);
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    Console.Write(matrix.ArrayContent[i,j] + " ");
+                }
+                Console.WriteLine();
+            }
         }
     }
 }

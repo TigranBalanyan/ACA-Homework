@@ -25,13 +25,13 @@ namespace ACA_Homework.Assingmnet_4
 
             Random rnd = new Random();
 
-            ArrayContent = new int[Rows,Columns];
+            ArrayContent = new int[Rows, Columns];
 
             for (int i = 0; i < Rows; i++)
             {
                 for (int j = 0; j < Columns; j++)
                 {
-                    ArrayContent[i,j] = rnd.Next(10, 100);
+                    ArrayContent[i, j] = rnd.Next(10, 100);
                 }
             }
         }
@@ -49,7 +49,7 @@ namespace ACA_Homework.Assingmnet_4
             {
                 for (int j = 0; j < matrix.Columns; j++)
                 {
-                    transposedMatrix.ArrayContent[j, i] = matrix.ArrayContent[i, j]; 
+                    transposedMatrix.ArrayContent[j, i] = matrix.ArrayContent[i, j];
                 }
             }
 
@@ -97,36 +97,110 @@ namespace ACA_Homework.Assingmnet_4
         /// </summary>
         /// <param name="matrix">Input matrix</param>
         /// <returns></returns>
-        public static  Matrix Inverse(Matrix matrix)
+        public static Matrix Inverse(Matrix matrix)
         {
             int n = matrix.ArrayContent.Length;
-            double[,] result = MatrixDuplicate(matrix);
+            Matrix inversedMatrix = MatrixDuplicate(matrix);
 
             int[] perm;
             int toggle;
-            double[][] lum = MatrixDecompose(matrix, out perm,
+            Matrix lum = MatrixDecompose(matrix, out perm,
               out toggle);
+
             if (lum == null)
                 throw new Exception("Unable to compute inverse");
 
-            double[] b = new double[n];
+            int[] b = new int[n];
             for (int i = 0; i < n; ++i)
             {
                 for (int j = 0; j < n; ++j)
                 {
                     if (i == perm[j])
-                        b[j] = 1.0;
+                        b[j] = 1;
                     else
-                        b[j] = 0.0;
+                        b[j] = 0;
                 }
 
-                double[] x = HelperSolve(lum, b);
+                int[] x = HelperSolve(lum, b);
 
                 for (int j = 0; j < n; ++j)
-                    result[j][i] = x[j];
+                    inversedMatrix.ArrayContent[j, i] = x[j];
+            }
+
+            return inversedMatrix;
+        }
+
+
+        private static int[] HelperSolve(Matrix lum, int[] b)
+        {
+            // before calling this helper, permute b using the perm array
+            // from MatrixDecompose that generated luMatrix
+            int n = lum.ArrayContent.Length;
+            int[] x = new int[n];
+            b.CopyTo(x, 0);
+
+            for (int i = 1; i < n; ++i)
+            {
+                int sum = x[i];
+                for (int j = 0; j < i; ++j)
+                    sum -= lum.ArrayContent[i, j] * x[j];
+                x[i] = sum;
+            }
+
+            x[n - 1] /= lum.ArrayContent[n - 1, n - 1];
+            for (int i = n - 2; i >= 0; --i)
+            {
+                int sum = x[i];
+                for (int j = i + 1; j < n; ++j)
+                sum -= lum.ArrayContent[i,j] * x[j];
+                x[i] = sum / lum.ArrayContent[i,i];
+            }
+
+            return x;
+        }
+
+        private static Matrix MatrixDecompose(Matrix matrix, out int[] perm, out int toggle)
+        {
+
+            if (matrix.Rows != matrix.Columns)
+                throw new Exception("Attempt to decompose a non-square m");
+
+            int n = matrix.Rows; // convenience
+
+            Matrix result = MatrixDuplicate(matrix);
+
+            perm = new int[n]; // set up row permutation result
+            for (int i = 0; i < n; ++i) { perm[i] = i; }
+
+            toggle = 1; // toggle tracks row swaps.
+                        // +1 -greater-than even, -1 -greater-than odd. used by MatrixDeterminant
+
+            for (int j = 0; j < n - 1; ++j) // each column
+            {
+                double colMax = Math.Abs(result.ArrayContent[j,j]); // find largest val in col
+                int pRow = j;
+
+                // reader Matt V needed this:
+                for (int i = j + 1; i <  n; ++i) 
+                {
+                    if (Math.Abs(result.ArrayContent[i,j]) > colMax)
+                    {
+                        colMax = Math.Abs(result.ArrayContent[i,j]);
+                        pRow = i;
+                    }
+                }
             }
 
             return result;
+        }
+
+
+        private static Matrix MatrixDuplicate(Matrix matrix)
+        {
+            Matrix duplicateMatrix = new Matrix(matrix.Rows, matrix.Columns);
+            duplicateMatrix.ArrayContent = matrix.ArrayContent;
+
+            return duplicateMatrix;
         }
 
         /// <summary>

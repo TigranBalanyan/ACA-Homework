@@ -21,7 +21,7 @@ namespace ACA_Homework
         }
 
         /// <summary>
-        /// 
+        /// Prints the List of rolling results
         /// </summary>
         /// <param name="numberOfElement">Event parameter that shows the first element number when the event triggers</param>
         /// <param name="numberOfEvents">Shows the number of triggered events</param>

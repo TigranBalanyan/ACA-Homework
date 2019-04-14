@@ -1,4 +1,5 @@
 ﻿using System;
+using ACA_Homework.Assignment_5;
 using ACA_Homework.Assingmnet_4;
 
 namespace ACA_Homework
@@ -7,42 +8,27 @@ namespace ACA_Homework
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Please, enter the number of Rows!");
-            int rows = Convert.ToInt32(Console.ReadLine());
+            RollingDie die = new RollingDie(); //Creating an inctance of a die
+            die.OnTwoRowsInARowAccured += PrintTwoRowsInARowEvent; //subscribing to an event
+            die.Roll(); // Rolling the dice
 
-            Console.WriteLine("Please, enter the number of Columns!");
-            int columns = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine();
 
-            Matrix matrix = new Matrix(rows: rows, columns: columns); //creates and initalizes a matrix with random numbers
-
-            PrintMatrix(matrix); //Prints the created Matrix
-
-            PrintMatrix(Matrix.Inverse(matrix));  // Inverses given Matrix and prints it
-
-            PrintMatrix(Matrix.Transpose(matrix));  // Transposes given Matrix and prints it
-
-            Console.WriteLine(Matrix.IsOrthogonal(matrix)); //checks if orthogonal 
-
-            Console.WriteLine(Matrix.SmallestNumber(matrix)); //Finds the smallest number of matrix
-
-            Console.WriteLine(Matrix.LargestNumber(matrix)); //Finds the largest number
+            foreach(var x in die.Rollings)
+            {
+                Console.Write(x + " ");
+            }
         }
 
         /// <summary>
-        /// Prints the values of the matrix
+        /// 
         /// </summary>
-        /// <param name="matrix">Input matrix</param>
-        static void PrintMatrix(Matrix matrix)
+        /// <param name="numberOfElement">Event parameter that shows the first element number when the event triggers</param>
+        /// <param name="numberOfEvents">Shows the number of triggered events</param>
+        public  static void PrintTwoRowsInARowEvent(int numberOfElement, int numberOfEvents)
         {
-
-            for (int i = 0; i < matrix.Rows; i++)
-            {
-                for (int j = 0; j < matrix.Columns; j++)
-                {
-                    Console.Write(matrix.ArrayContent[i,j] + " ");
-                }
-                Console.WriteLine();
-            }
+            Console.WriteLine("Two Fours in a row event occured! in a " + numberOfElement);
+            Console.WriteLine("Total Number of Events is "  + numberOfEvents);
         }
     }
 }

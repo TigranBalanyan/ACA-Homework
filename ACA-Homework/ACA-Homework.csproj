@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assignment-1\HomeworkTask-1.cs" />
+    <Compile Include="Assignment-5\RollingDie.cs" />
     <Compile Include="Assingment-3\Algorithm.cs" />
     <Compile Include="Assingment-3\BubbleSort.cs" />
     <Compile Include="Assingment-3\HeapSort.cs" />

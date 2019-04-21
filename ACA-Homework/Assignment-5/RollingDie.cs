@@ -50,15 +50,9 @@ namespace ACA_Homework.Assignment_5
             int j;
             for (int i = 0; i < Rollings.Count - 5; i++)
             {
-                int sumOfRollings = 0;
-                for (j = i ; j < i + 5 ; j++)
+                if(this.Rollings.GetRange(i,5).Sum()>=20 && this.OnSumIsGreateThanOrEqualToTwenthy != null)
                 {
-                    sumOfRollings += Rollings[j];
-                }
-
-                if(sumOfRollings >= 20 && this.OnSumIsGreateThanOrEqualToTwenthy != null)
-                {
-                    OnSumIsGreateThanOrEqualToTwenthy(this,Rollings.GetRange(j - 5 ,5));
+                    OnSumIsGreateThanOrEqualToTwenthy(this,Rollings.GetRange(i - 5 ,5));
                 }
             }
         }

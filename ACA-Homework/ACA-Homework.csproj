@@ -43,8 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assingment-6\AirportComparer.cs" />
-    <Compile Include="Assingment-6\Abbreviation.cs" />
+    <Compile Include="Assingment-6\Exercise-3\AirportComparer.cs" />
+    <Compile Include="Assingment-6\Exercise-2\Abbreviation.cs" />
     <Compile Include="Assignment-1\HomeworkTask-1.cs" />
     <Compile Include="Assignment-5\RollingDie.cs" />
     <Compile Include="Assingment-3\Algorithm.cs" />
@@ -54,10 +54,13 @@
     <Compile Include="Assingment-3\MergeSort.cs" />
     <Compile Include="Assingment-3\QuickSort.cs" />
     <Compile Include="Assingment-4\Matrix.cs" />
-    <Compile Include="Assingment-6\Airport.cs" />
-    <Compile Include="Assingment-6\OnlineAttendance.cs" />
-    <Compile Include="Assingment-6\Size.cs" />
-    <Compile Include="Assingment-6\Student.cs" />
+    <Compile Include="Assingment-6\Exercise-3\Airport.cs" />
+    <Compile Include="Assingment-6\Execise -1\OnlineAttendance.cs" />
+    <Compile Include="Assingment-6\Exercise-3\Size.cs" />
+    <Compile Include="Assingment-6\Exercise-4\Classes.cs" />
+    <Compile Include="Assingment-6\Exercise-4\Student.cs" />
+    <Compile Include="Assingment-6\Exercise-4\StudentCatalog.cs" />
+    <Compile Include="Assingment-6\Exercise-4\StudentSort.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -4,22 +4,22 @@ using System.Linq;
 
 namespace ACA_Homework.Assingment_6.Exercise_4
 {
-    internal class StudentCatalog
+    public partial class StudentCatalog
     {
-        private Dictionary<int, Student> Students { get; set; }
+        public Dictionary<int, Student> StudentsCatalog { get; set; }
 
         public StudentCatalog()
         {
-            Students = new Dictionary<int, Student>();
+            StudentsCatalog = new Dictionary<int, Student>();
         }
 
         /// <summary>
         /// Addina a single student to a catalog
         /// </summary>
-        /// <param name="aStudent">A simple student</param>
-        public void AddStudent(Student aStudent)
+        /// <param name="student">A simple student</param>
+        public void AddStudent(Student student)
         {
-            Students.Add(aStudent.Id, aStudent);
+            StudentsCatalog.Add(student.Id, student);
         }
 
         /// <summary>
@@ -30,9 +30,9 @@ namespace ACA_Homework.Assingment_6.Exercise_4
         /// <returns></returns>
         public Student GetStudent(int id)
         {
-            if (Students.ContainsKey(id))
+            if (StudentsCatalog.ContainsKey(id))
             {
-                return Students[id];
+                return StudentsCatalog[id];
             }
             else
             {
@@ -48,16 +48,20 @@ namespace ACA_Homework.Assingment_6.Exercise_4
         /// <returns></returns>
         public int GetAverageForStudent(int id)
         {
-            if (Students.ContainsKey(id))
+            if (StudentsCatalog.ContainsKey(id))
             {
                 int studentAverageScore = 0;
-                foreach (var student in Students)
+                foreach (var student in StudentsCatalog)
                 {
                     if (student.Key == id)
                     {
                         int score;
-                        score = student.Value.Scores.Sum(x => x.Value); //used some LINQ 
-                        studentAverageScore += score;
+                        score = student.Value.TestResult.Sum(x => x.Value); //used some LINQ 
+
+                        if (student.Value.TestResult.Count() > 0)
+                        {
+                            studentAverageScore += score / student.Value.TestResult.Count();
+                        }
                     }
                 }
                 return studentAverageScore;
@@ -78,41 +82,42 @@ namespace ACA_Homework.Assingment_6.Exercise_4
         {
             int totalAverageScoreForStudents = 0;
             int studentAverageScore;
-            foreach (var student in Students)
+            foreach (var student in this.StudentsCatalog)
             {
                 studentAverageScore = GetAverageForStudent(student.Key);
+
                 if (studentAverageScore != -1)
                 {
                     totalAverageScoreForStudents += studentAverageScore;
                 }
             }
-            return totalAverageScoreForStudents;
+            return totalAverageScoreForStudents/this.StudentsCatalog.Count();
         }
 
         /// <summary>
-        /// Get top three students who have the highest average score. 
+        /// Get top three students who have the highest average score.
         /// If no student returns empty list. 
         /// </summary>
         /// <returns></returns>
         public List<Student> GetTopThreeStudents()
         {
-            var topStudents = Students.ToList(); //why I love vars :)))
-            topStudents.Sort(new StudentSort());
+            var studentsList = new List<Student>(); //this logic is very bad, I don't like it, but it's the easiues way
 
-            if (Students.Count() >= 3)
+            var topThreeStudentsList = new List<Student>();
+
+            foreach(var student in this.StudentsCatalog)
             {
-                return topStudents.Take<Student>(3, Classes);
-            }
-            else
-            {
-                return null;
+                studentsList.Add(student.Value);
             }
 
-        }
+            studentsList.Sort(new StudentComparer());
 
-        private interface IClasses : IQueryable<Student>
-        {
+            for (int i = 0; i < 3; i++)
+            {
+                topThreeStudentsList.Add(studentsList[i]);
+            }
 
+            return topThreeStudentsList;
         }
     }
 }

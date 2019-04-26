@@ -57,10 +57,9 @@
     <Compile Include="Assingment-6\Exercise-3\Airport.cs" />
     <Compile Include="Assingment-6\Execise -1\OnlineAttendance.cs" />
     <Compile Include="Assingment-6\Exercise-3\Size.cs" />
-    <Compile Include="Assingment-6\Exercise-4\Classes.cs" />
     <Compile Include="Assingment-6\Exercise-4\Student.cs" />
     <Compile Include="Assingment-6\Exercise-4\StudentCatalog.cs" />
-    <Compile Include="Assingment-6\Exercise-4\StudentSort.cs" />
+    <Compile Include="Assingment-6\Exercise-4\StudentComparer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

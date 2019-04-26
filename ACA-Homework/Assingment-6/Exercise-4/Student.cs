@@ -11,21 +11,23 @@ namespace ACA_Homework.Assingment_6
     /// <summary>
     /// Simple representation of a student
     /// </summary>
-    internal class Student : IQueryable<Student>
+    public class Student
     {
+        public Student(int id, string name)
+        {
+            this.Id = id;
+            this.Name = name;
+            
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
-        public Dictionary<string,int> Scores { get; set; }
 
-        public Expression Expression => throw new NotImplementedException();
+        public Dictionary<string, int> TestResult = new Dictionary<string, int>();
 
-        public Type ElementType => throw new NotImplementedException();
-
-        public IQueryProvider Provider => throw new NotImplementedException();
-
-        IEnumerator<Student> IEnumerable<Student>.GetEnumerator()
+        internal void AddTestResult(string subject, int score)
         {
-            throw new NotImplementedException();
+            this.TestResult.Add(subject, score);
         }
     }
 }

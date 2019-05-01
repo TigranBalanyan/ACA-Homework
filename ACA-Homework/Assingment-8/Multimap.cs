@@ -16,7 +16,7 @@ namespace ACA_Homework.Assingment_7
     public class MultiMap<TKey, TValue> : IDictionary<TKey, TValue>
     {
 
-        public TValue this[TKey key] { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public TValue this[TKey key] { get => MultiMapContent[key][0]; set => MultiMapContent[key][0] = value; }
 
         public ICollection<TKey> Keys { get; set; }
 
@@ -32,7 +32,7 @@ namespace ACA_Homework.Assingment_7
         {
             MultiMapContent = new Dictionary<TKey, List<TValue>>();
             Keys = MultiMapContent.Keys;
-       //     Values = MultiMapContent.Values;
+         //   Values = MultiMapContent;
         }
 
         /// <summary>
@@ -42,9 +42,24 @@ namespace ACA_Homework.Assingment_7
         /// <param name="value"></param>
         public void Add(TKey key, TValue value)
         {
-            List<TValue> listItems = null;
-            MultiMapContent.TryGetValue(key, out listItems);
-            MultiMapContent.Add(key, listItems);
+            try
+            {
+                List<TValue> listItems = null;
+                if (MultiMapContent.TryGetValue(key, out listItems))
+                {
+                    listItems.Add(value);
+                }
+                else
+                {
+                    listItems = new List<TValue>();
+                    listItems.Add(value);
+                    MultiMapContent.Add(key, listItems);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception();
+            }
         }
 
         /// <summary>
@@ -54,12 +69,29 @@ namespace ACA_Homework.Assingment_7
         /// <param name="value"></param>
         public void Add(KeyValuePair<TKey, TValue> item)
         {
-            List<TValue> listItems = null;
-            MultiMapContent.TryGetValue(item.Key, out listItems);
-            listItems.Add(item.Value);
-            MultiMapContent.Add(item.Key, listItems);
+            try
+            {
+                List<TValue> listItems = null;
+                if(MultiMapContent.TryGetValue(item.Key, out listItems))
+                {
+                    listItems.Add(item.Value);
+                }
+                else
+                {
+                    listItems = new List<TValue>();
+                    listItems.Add(item.Value);
+                    MultiMapContent.Add(item.Key, listItems);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception();
+            }
         }
 
+        /// <summary>
+        /// Clearing the whole memory of a MultiMap
+        /// </summary>
         public void Clear()
         {
             MultiMapContent.Clear();
@@ -89,19 +121,15 @@ namespace ACA_Homework.Assingment_7
         /// <param name="key"></param>
         public bool ContainsKey(TKey key)
         {
-            foreach(var Keys in MultiMapContent.Keys)
-            {
-                if(Keys.Equals(key))
-                {
-                    return true;
-                }
-            }
-            return false;
+            return MultiMapContent.Keys.Contains(key);
         }
-
 
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
         {
+            foreach(var element in array)
+            {
+                Console.WriteLine();
+            }
             throw new NotImplementedException();
         }   
 
@@ -110,6 +138,11 @@ namespace ACA_Homework.Assingment_7
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        ///Removes the specified key in th MultiMap 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public bool Remove(TKey key)
         {
             List<TValue> listItems = null;
@@ -121,18 +154,30 @@ namespace ACA_Homework.Assingment_7
             return false;        
         }
 
+        /// <summary>
+        /// Removes specified member from the MultiMap
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public bool Remove(KeyValuePair<TKey, TValue> item)
         {
             List<TValue> listItems = null;
             if (MultiMapContent.TryGetValue(item.Key, out listItems))
             {
-                MultiMapContent.Remove(item.Key);
+                
                 listItems.Remove(item.Value);
+                MultiMapContent.Remove(item.Key);
                 return true;
             }
             return false;
         }
 
+        /// <summary>
+        /// If possible gets value of the MultiMap
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public bool TryGetValue(TKey key, out TValue value)
         {
             if (MultiMapContent.Keys.Contains(key))

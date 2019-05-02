@@ -13,14 +13,13 @@ namespace ACA_Homework.Assingment_7
     /// </summary>
     /// <typeparam name="Key"></typeparam>
     /// <typeparam name="Value"></typeparam>
-    public class MultiMap<TKey, TValue> : IDictionary<TKey, TValue>
+    public class MultiMap<TKey, TValue> : IDictionary<TKey, List<TValue>>
     {
-
-        public TValue this[TKey key] { get => MultiMapContent[key][0]; set => MultiMapContent[key][0] = value; }
+        public List<TValue> this[TKey key] { get => this.MultiMapContent[key]; set => this.MultiMapContent[key] = value; }
 
         public ICollection<TKey> Keys { get; set; }
 
-        public ICollection<TValue> Values { get; set; }
+        public ICollection<List<TValue>> Values { get; set; }
 
         public Dictionary<TKey, List<TValue>> MultiMapContent { get; set; }
 
@@ -30,9 +29,11 @@ namespace ACA_Homework.Assingment_7
 
         public MultiMap()
         {
-            MultiMapContent = new Dictionary<TKey, List<TValue>>();
-            Keys = MultiMapContent.Keys;
-         //   Values = MultiMapContent;
+            this.MultiMapContent = new Dictionary<TKey, List<TValue>>();
+            this.Keys = this.MultiMapContent.Keys;
+            this.Values = this.MultiMapContent.Values;
+            this.Count = this.MultiMapContent.Count;
+            this.IsReadOnly = true;
         }
 
         /// <summary>
@@ -40,26 +41,9 @@ namespace ACA_Homework.Assingment_7
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        public void Add(TKey key, TValue value)
+        public void Add(TKey key, List<TValue> value)
         {
-            try
-            {
-                List<TValue> listItems = null;
-                if (MultiMapContent.TryGetValue(key, out listItems))
-                {
-                    listItems.Add(value);
-                }
-                else
-                {
-                    listItems = new List<TValue>();
-                    listItems.Add(value);
-                    MultiMapContent.Add(key, listItems);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception();
-            }
+            this.MultiMapContent.Add(key, value);
         }
 
         /// <summary>
@@ -67,26 +51,9 @@ namespace ACA_Homework.Assingment_7
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
-        public void Add(KeyValuePair<TKey, TValue> item)
+        public void Add(KeyValuePair<TKey, List<TValue>> item)
         {
-            try
-            {
-                List<TValue> listItems = null;
-                if(MultiMapContent.TryGetValue(item.Key, out listItems))
-                {
-                    listItems.Add(item.Value);
-                }
-                else
-                {
-                    listItems = new List<TValue>();
-                    listItems.Add(item.Value);
-                    MultiMapContent.Add(item.Key, listItems);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception();
-            }
+            this.MultiMapContent.Add(item.Key, item.Value);
         }
 
         /// <summary>
@@ -94,25 +61,16 @@ namespace ACA_Homework.Assingment_7
         /// </summary>
         public void Clear()
         {
-            MultiMapContent.Clear();
+            this.MultiMapContent.Clear();
         }
 
         /// <summary>
         /// Checks if MultiMap contains given item.
         /// </summary>
         /// <param name="item"></param>
-        public bool Contains(KeyValuePair<TKey, TValue> item)
+        public bool Contains(KeyValuePair<TKey, List<TValue>> item)
         {
-            List<TValue> listItems = null;
-            MultiMapContent.TryGetValue(item.Key, out listItems);
-            if (listItems.Contains(item.Value))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return this.MultiMapContent.Contains(item);
         }
 
         /// <summary>
@@ -121,21 +79,30 @@ namespace ACA_Homework.Assingment_7
         /// <param name="key"></param>
         public bool ContainsKey(TKey key)
         {
-            return MultiMapContent.Keys.Contains(key);
+            return this.MultiMapContent.Keys.Contains(key);
         }
 
-        public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
+        /// <summary>
+        /// Copies the MultiMap to an array from the specified array index
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="arrayIndex"></param>
+        public void CopyTo(KeyValuePair<TKey, List<TValue>>[] array, int arrayIndex)
         {
-            foreach(var element in array)
+            if(arrayIndex >= 0 && this.MultiMapContent != null)
             {
-                Console.WriteLine();
+                array.Take(arrayIndex).Concat(this.MultiMapContent);
             }
-            throw new NotImplementedException();
-        }   
+        }
 
-        public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
+        public IEnumerator<KeyValuePair<TKey, List<TValue>>> GetEnumerator()
         {
-            throw new NotImplementedException();
+            return this.MultiMapContent.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
         }
 
         /// <summary>
@@ -145,13 +112,7 @@ namespace ACA_Homework.Assingment_7
         /// <returns></returns>
         public bool Remove(TKey key)
         {
-            List<TValue> listItems = null;
-            if(MultiMapContent.TryGetValue(key, out listItems))
-            {
-                MultiMapContent.Remove(key);
-                return true;
-            }
-            return false;        
+            return this.MultiMapContent.Remove(key);
         }
 
         /// <summary>
@@ -159,17 +120,9 @@ namespace ACA_Homework.Assingment_7
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public bool Remove(KeyValuePair<TKey, TValue> item)
+        public bool Remove(KeyValuePair<TKey, List<TValue>> item)
         {
-            List<TValue> listItems = null;
-            if (MultiMapContent.TryGetValue(item.Key, out listItems))
-            {
-                
-                listItems.Remove(item.Value);
-                MultiMapContent.Remove(item.Key);
-                return true;
-            }
-            return false;
+            return this.Remove(item);
         }
 
         /// <summary>
@@ -178,25 +131,9 @@ namespace ACA_Homework.Assingment_7
         /// <param name="key"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public bool TryGetValue(TKey key, out TValue value)
+        public bool TryGetValue(TKey key, out List<TValue> value)
         {
-            if (MultiMapContent.Keys.Contains(key))
-            {
-                List<TValue> listItems = null;
-                MultiMapContent.TryGetValue(key, out listItems);
-                value = listItems[0];
-                return true;
-            }
-            else
-            {
-                value = default(TValue);
-                return false;
-            }
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            throw new NotImplementedException();
+            return this.MultiMapContent.TryGetValue(key, out value);
         }
     }
 }

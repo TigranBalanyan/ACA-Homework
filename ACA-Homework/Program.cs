@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using ACA_Homework.Assingment_6;
 using ACA_Homework.Assingment_6.Exercise_4;
 using ACA_Homework.Assingment_7;
@@ -9,73 +11,60 @@ namespace ACA_Homework
 {
     class Program
     {
+        private static List<int> source;
+
         static void Main(string[] args)
         {
-            var list = new List<string>();
-            list.Add("Hello");
-            var multiMap = new MultiMap<int, string>(); //initalizing an object
-            multiMap.Add(5, list); //adding a value to key
-            list.Add(" World!");
-            multiMap.Add(6, list);
+            #region ParallelFor
 
-            PrintMultiMapKeys(multiMap);
-            PrintMultiMapValues(multiMap);
-
+            int fromInclusive = 5;
+            int toExclusive = 10;
+            Action<int> action = new Action<int>(ActionBody);
+            ParalleFor(fromInclusive,toExclusive, action);
             Console.WriteLine();
 
-            var outputList = new List<string>();
-            multiMap.TryGetValue(5, out outputList); //checking the TryGetValue implementation
+            #endregion
 
-            foreach(var item in outputList)
-            {
-                Console.WriteLine(item + "the values of the key ");
-            }
+            #region ParallelForEach
 
+            source = new List<int>();
+            source.Add(5);
+            source.Add(4);
+            Parallel.ForEach<int>(source, ActionBody);
             Console.WriteLine();
-            var checkList = new List<string>();
-            checkList.Add("Hello");
-            Console.WriteLine(multiMap.Contains(new KeyValuePair<int, List<string>>(5, checkList))); //checks is the multimap 
-                                                                                                     // contains the keyvalue
 
-            Console.WriteLine();
-            multiMap.Remove(6);
-            PrintMultiMapKeys(multiMap); //checks if the MultiMap contains the key
+            #endregion
 
+            #region ParallelForEachWithOptions
 
+            var parallelOptions = new ParallelOptions(); //created the parallel options
 
+            var numberOfProcessors = Environment.ProcessorCount; //number of processors
+
+            parallelOptions.MaxDegreeOfParallelism = numberOfProcessors + 1; 
+            Parallel.ForEach<int>(source, parallelOptions: parallelOptions, ActionBody);
+
+            #endregion
         }
 
         /// <summary>
-        /// Prints the MultiMap keys
+        /// Implements the parallel programming
         /// </summary>
-        /// <param name="multiMap"></param>
-        public static void PrintMultiMapKeys(MultiMap<int, string> multiMap)
+        /// <param name="fromInclusive"></param>
+        /// <param name="toExclusive"></param>
+        /// <param name="action"></param>
+        private static void ParalleFor(int fromInclusive, int toExclusive, Action<int> action)
         {
-            if (multiMap.Keys != null)
-            {
-                foreach (var memberKey in multiMap.Keys)
-                {
-                    Console.WriteLine(memberKey + " the MultiMap key.");
-                }
-            }
+            Parallel.For(fromInclusive, toExclusive, action);
         }
 
         /// <summary>
-        /// Prints the MultiMap values
+        /// Method for printing the number
         /// </summary>
-        /// <param name="multiMap"></param>
-        public static void PrintMultiMapValues(MultiMap<int, string> multiMap)
+        /// <param name="x"></param>
+        public static void ActionBody(int x)
         {
-            if(multiMap.Values != null)
-            {
-                foreach (var memberValueList in multiMap.Values)
-                {
-                    foreach(var value in memberValueList)
-                    {
-                        Console.WriteLine(value + " the MultiMap value.");
-                    }
-                }
-            }
+            Console.WriteLine(x + "the Action X"); 
         }
     }
 }

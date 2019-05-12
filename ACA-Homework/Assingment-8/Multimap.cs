@@ -16,15 +16,10 @@ namespace ACA_Homework.Assingment_7
     public class MultiMap<TKey, TValue> : IDictionary<TKey, List<TValue>>
     {
         public List<TValue> this[TKey key] { get => this.MultiMapContent[key]; set => this.MultiMapContent[key] = value; }
-
         public ICollection<TKey> Keys { get; set; }
-
         public ICollection<List<TValue>> Values { get; set; }
-
         public Dictionary<TKey, List<TValue>> MultiMapContent { get; set; }
-
         public int Count { get; set; }
-
         public bool IsReadOnly { get; set; }
 
         public MultiMap()

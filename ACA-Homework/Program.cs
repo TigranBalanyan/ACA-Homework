@@ -1,11 +1,7 @@
-﻿using System;
+﻿using ACA_Homework.Assingment_9;
+using System;
 using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
-using ACA_Homework.Assingment_6;
-using ACA_Homework.Assingment_6.Exercise_4;
-using ACA_Homework.Assingment_7;
-using static ACA_Homework.Assingment_6.Airport;
 
 namespace ACA_Homework
 {
@@ -15,13 +11,13 @@ namespace ACA_Homework
 
         static void Main(string[] args)
         {
+
             #region ParallelFor
 
-            int fromInclusive = 5;
-            int toExclusive = 10;
-            Action<int> action = new Action<int>(ActionBody);
-            ParalleFor(fromInclusive,toExclusive, action);
-            Console.WriteLine();
+            int fromInclusive = Convert.ToInt32(Console.Read());
+            int toExclusive = Convert.ToInt32(Console.Read());
+
+            MyParallel.ParallelFor(fromInclusive, toExclusive, Method);
 
             #endregion
 
@@ -30,7 +26,7 @@ namespace ACA_Homework
             source = new List<int>();
             source.Add(5);
             source.Add(4);
-            Parallel.ForEach<int>(source, ActionBody);
+            MyParallel.ForEach<int>(source, Method);
             Console.WriteLine();
 
             #endregion
@@ -42,29 +38,20 @@ namespace ACA_Homework
             var numberOfProcessors = Environment.ProcessorCount; //number of processors
 
             parallelOptions.MaxDegreeOfParallelism = numberOfProcessors + 1; 
-            Parallel.ForEach<int>(source, parallelOptions: parallelOptions, ActionBody);
+            MyParallel.ForEach<int>(source, parallelOptions, Method);
 
             #endregion
         }
 
         /// <summary>
-        /// Implements the parallel programming
+        /// Some basic method
         /// </summary>
-        /// <param name="fromInclusive"></param>
-        /// <param name="toExclusive"></param>
-        /// <param name="action"></param>
-        private static void ParalleFor(int fromInclusive, int toExclusive, Action<int> action)
+        /// <param name="obj"></param>
+        private static void Method(int obj)
         {
-            Parallel.For(fromInclusive, toExclusive, action);
+            obj++;
+            Console.WriteLine(obj + "our value"); //does something
         }
 
-        /// <summary>
-        /// Method for printing the number
-        /// </summary>
-        /// <param name="x"></param>
-        public static void ActionBody(int x)
-        {
-            Console.WriteLine(x + "the Action X"); 
-        }
     }
 }

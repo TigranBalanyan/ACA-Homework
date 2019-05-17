@@ -62,6 +62,7 @@
     <Compile Include="Assingment-6\Exercise-4\StudentCatalog.cs" />
     <Compile Include="Assingment-6\Exercise-4\StudentComparer.cs" />
     <Compile Include="Assingment-8\Multimap.cs" />
+    <Compile Include="Assingment-9\Parallel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

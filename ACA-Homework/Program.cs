@@ -1,57 +1,38 @@
-﻿using ACA_Homework.Assingment_9;
+﻿using ACA_Homework.Assingment_10;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace ACA_Homework
 {
     class Program
     {
-        private static List<int> source;
-
         static void Main(string[] args)
         {
-
-            #region ParallelFor
-
-            int fromInclusive = Convert.ToInt32(Console.Read());
-            int toExclusive = Convert.ToInt32(Console.Read());
-
-            MyParallel.ParallelFor(fromInclusive, toExclusive, Method);
-
-            #endregion
-
-            #region ParallelForEach
-
-            source = new List<int>();
-            source.Add(5);
-            source.Add(4);
-            MyParallel.ForEach<int>(source, Method);
-            Console.WriteLine();
-
-            #endregion
-
-            #region ParallelForEachWithOptions
-
-            var parallelOptions = new ParallelOptions(); //created the parallel options
-
-            var numberOfProcessors = Environment.ProcessorCount; //number of processors
-
-            parallelOptions.MaxDegreeOfParallelism = numberOfProcessors + 1; 
-            MyParallel.ForEach<int>(source, parallelOptions, Method);
-
-            #endregion
+            FileAsyncCopy copy = new FileAsyncCopy(@"C:\Users\tbala\source\repos\ACA-Homework\ACA-Homework\Assingment-10\TextFile1.txt", @"C:\Users\tbala\source\repos\ACA-Homework\ACA-Homework\Assingment-10\TextFile.txt");
+            copy.Completed += CopyCompleted;
+            copy.ProgressChanged += CopyProgressChanged;
+            copy.StartAsync();
         }
 
-        /// <summary>
-        /// Some basic method
-        /// </summary>
-        /// <param name="obj"></param>
-        private static void Method(int obj)
+        public static  void Start()
         {
-            obj++;
-            Console.WriteLine(obj + "our value"); //does something
+            FileAsyncCopy copy = new FileAsyncCopy(@"C:\Users\tbala\source\repos\ACA-Homework\ACA-Homework\Assingment-10\TextFile1.txt", @"C:\Users\tbala\source\repos\ACA-Homework\ACA-Homework\Assingment-10\TextFile.txt");
+            copy.Completed += CopyCompleted;
+            copy.ProgressChanged += CopyProgressChanged;
+            copy.StartAsync();
         }
 
+        private static void CopyProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            Console.WriteLine("You");
+            Console.WriteLine(e.ProgressPercentage);
+        }
+        private static void CopyCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            Console.WriteLine("Hey");
+            BackgroundWorker worker = sender as BackgroundWorker;
+            worker.Dispose();
+        }
     }
 }

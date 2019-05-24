@@ -4,17 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{77600B0D-D788-43D0-AE10-3CF7CD20D660}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>ACA_Homework</RootNamespace>
-    <AssemblyName>ACA-Homework</AssemblyName>
+    <ProjectGuid>{75945229-523A-4BA1-9774-18E546556ECC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LINQExtension</RootNamespace>
+    <AssemblyName>LINQExtension</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -35,7 +33,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,34 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assingment-10\Copytron.cs" />
-    <Compile Include="Assingment-6\Exercise-3\AirportComparer.cs" />
-    <Compile Include="Assingment-6\Exercise-2\Abbreviation.cs" />
-    <Compile Include="Assignment-1\HomeworkTask-1.cs" />
-    <Compile Include="Assignment-5\RollingDie.cs" />
-    <Compile Include="Assingment-3\Algorithm.cs" />
-    <Compile Include="Assingment-3\BubbleSort.cs" />
-    <Compile Include="Assingment-3\HeapSort.cs" />
-    <Compile Include="Assingment-3\InsertionSort.cs" />
-    <Compile Include="Assingment-3\MergeSort.cs" />
-    <Compile Include="Assingment-3\QuickSort.cs" />
-    <Compile Include="Assingment-4\Matrix.cs" />
-    <Compile Include="Assingment-6\Exercise-3\Airport.cs" />
-    <Compile Include="Assingment-6\Execise -1\OnlineAttendance.cs" />
-    <Compile Include="Assingment-6\Exercise-3\Size.cs" />
-    <Compile Include="Assingment-6\Exercise-4\Student.cs" />
-    <Compile Include="Assingment-6\Exercise-4\StudentCatalog.cs" />
-    <Compile Include="Assingment-6\Exercise-4\StudentComparer.cs" />
-    <Compile Include="Assingment-8\Multimap.cs" />
-    <Compile Include="Assingment-9\Parallel.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="LINQExt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Assingment-10\TextFile1.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

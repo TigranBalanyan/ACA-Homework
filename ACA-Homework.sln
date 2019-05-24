@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.489
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACA-Homework", "ACA-Homework\ACA-Homework.csproj", "{77600B0D-D788-43D0-AE10-3CF7CD20D660}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LINQExtension", "LINQExtension\LINQExtension.csproj", "{75945229-523A-4BA1-9774-18E546556ECC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{77600B0D-D788-43D0-AE10-3CF7CD20D660}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77600B0D-D788-43D0-AE10-3CF7CD20D660}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77600B0D-D788-43D0-AE10-3CF7CD20D660}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75945229-523A-4BA1-9774-18E546556ECC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75945229-523A-4BA1-9774-18E546556ECC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75945229-523A-4BA1-9774-18E546556ECC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75945229-523A-4BA1-9774-18E546556ECC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -26,7 +26,7 @@ namespace ACA_Homework.Assingment_10
             Worker = new BackgroundWorker();
             Worker.WorkerSupportsCancellation = false;
             Worker.WorkerReportsProgress = true;
-            Worker.DoWork += DoWork;
+            Worker.DoWork += new DoWorkEventHandler(DoWork);
         }
 
         public void DoWork(object sender, DoWorkEventArgs e)

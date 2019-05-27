@@ -2,17 +2,28 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Threading;
 
 namespace ACA_Homework
 {
     class Program
     {
+
         static void Main(string[] args)
         {
+
             bool finished = false;
 
-            FileAsyncCopy copy = new FileAsyncCopy(@"C:\Users\tbala\source\repos\ACA-Homework\ACA-Homework\Assingment-10\TextFile1.txt", @"C:\Users\tbala\source\repos\ACA-Homework\ACA-Homework\Assingment-10\TextFile.txt");
+            string currentDirectory = Directory.GetCurrentDirectory();
+            string targetFileName = "myFile.txt";
+            string sourceFileName = "targetFile.txt.txt";
+
+
+            string fileTarget = Path.Combine(currentDirectory, targetFileName);
+            string fileSource = Path.Combine(currentDirectory, sourceFileName);
+
+            FileAsyncCopy copy = new FileAsyncCopy(fileTarget, fileSource);
             copy.Completed += CopyCompleted;
             copy.ProgressChanged += CopyProgressChanged;
 

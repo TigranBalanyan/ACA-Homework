@@ -16,13 +16,14 @@ namespace ACA_Homework.Assingment_10
         private string Source { get; set; }
         private string Target { get; set; }
         BackgroundWorker Worker;
-        public FileAsyncCopy(string source, string target)
+        public FileAsyncCopy(string target, string source)
         {
             if (!File.Exists(source))
                 throw new FileNotFoundException(string.Format(@"Source file was not found. FileName: {0}", source));
 
             Source = source;
             Target = target;
+            File.WriteAllText(target, string.Empty);  //Empties the file that should be overriden.
             Worker = new BackgroundWorker();
             Worker.WorkerSupportsCancellation = false;
             Worker.WorkerReportsProgress = true;
